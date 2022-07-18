@@ -75,14 +75,14 @@ Basic pipelines have been added to test and build the project.
 
 ### Validate PR workflow  
 When a PR is raised, the valid PR workflow is triggered. Only if the steps of the workflow is successful, the PR is allowed to be merged.   
-The tests will be run as part of this step. Only if the tests are successful, the PR will be allowed to be merged.
+The tests are run as part of this step. Only if the tests are successful, the PR will be allowed to be merged.
 ![Validate PR](./pr_checks_before.png)
 ![Validate PR Success](./pr_checks_success.png)
 
 ### Build and test workflow
 The build and test workflow runs everytime the code is merged to master.  
 The tests are run and gradle build is also done as part of this workflow.
-![img.png](img.png)
+![img.png](build_and_test.png)  
 ![workflow run](https://github.com/rekakp/CanvasDrawingProgram/actions/runs/2693722093)
 ￼
 ￼
