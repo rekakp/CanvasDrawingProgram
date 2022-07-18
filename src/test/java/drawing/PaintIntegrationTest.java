@@ -1,5 +1,6 @@
 package drawing;
 
+import drawing.factory.TestFactory;
 import drawing.utils.PaintTestUtills;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,13 +11,14 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PaintAcceptanceTest {
+public class PaintIntegrationTest {
 
     public static final String CANVAS_NOT_AVAILABLE_TO_PAINT = "Canvas not available to paint";
     public static final String INVALID_INPUT_ERR = "Input command is not valid: ";
     public static final String ENTER_CMD_PROMPT = "Enter the command";
     ByteArrayOutputStream outputCapture = new ByteArrayOutputStream();
     PaintTestUtills paintTestUtils = new PaintTestUtills();
+    TestFactory testFactory = new TestFactory();
 
     @BeforeEach
     public void setUp() {
@@ -69,7 +71,7 @@ public class PaintAcceptanceTest {
 
     @Test
     public void testPaintWithoutCanvas() {
-        paintTestUtils.givenCommands( "L 7 1 7 3",  "Q");
+        paintTestUtils.givenCommands("L 7 1 7 3", "Q");
         whenPaintIsInvoked();
         assertThatTheResultIsAsExpected(expectedOutputForPaintingOnEmptyCanvas(CANVAS_NOT_AVAILABLE_TO_PAINT));
     }
@@ -77,9 +79,9 @@ public class PaintAcceptanceTest {
     @Test
     public void testPaintWithInvalidCommand() {
         String invalidCommand = "LA 7 1 7 3";
-        paintTestUtils.givenCommands( "C 20 5" , invalidCommand,  "Q");
+        paintTestUtils.givenCommands("C 20 5", invalidCommand, "Q");
         whenPaintIsInvoked();
-        assertThatTheResultIsAsExpected(expectedOutputForInvalidCommand(INVALID_INPUT_ERR +invalidCommand));
+        assertThatTheResultIsAsExpected(expectedOutputForInvalidCommand(INVALID_INPUT_ERR + invalidCommand));
     }
 
     private void whenPaintIsInvoked() {
@@ -101,89 +103,30 @@ public class PaintAcceptanceTest {
                 "Quitting!");
     }
 
-    private String newCanvasOutput() {
-        return paintTestUtils.concatenateOutputs(ENTER_CMD_PROMPT,
-                "----------------------",
-                "|                    |",
-                "|                    |",
-                "|                    |",
-                "|                    |",
-                "|                    |",
-                "----------------------");
-    }
-
-    private String expectedOutputForAHorizontalLine() {
-        return paintTestUtils.concatenateOutputs(ENTER_CMD_PROMPT,
-                "----------------------",
-                "|                    |",
-                "|                    |",
-                "|xxxxxxx             |",
-                "|                    |",
-                "|                    |",
-                "----------------------"
-        );
-    }
-
-    private String expectedOutputForAVerticalLine() {
-        return paintTestUtils.concatenateOutputs(ENTER_CMD_PROMPT,
-                "----------------------",
-                "|      x             |",
-                "|      x             |",
-                "|      x             |",
-                "|                    |",
-                "|                    |",
-                "----------------------"
-        );
-    }
-
     private String expectedOutputForANewCanvas() {
-        return paintTestUtils.concatenateOutputs(newCanvasOutput(), endingCommands());
+        return paintTestUtils.concatenateOutputs(testFactory.expectedNewCanvasOutputWithPrompt(), endingCommands());
     }
 
     private String expectedOutputForCanvasWithHorizontalLine() {
-        return paintTestUtils.concatenateOutputs(newCanvasOutput(), expectedOutputForAHorizontalLine(), endingCommands());
+        return paintTestUtils.concatenateOutputs(testFactory.expectedNewCanvasOutputWithPrompt(), testFactory.expectedOutputForAHorizontalLineWithPrompt(), endingCommands());
     }
 
     private String expectedOutputForCanvasWithVerticalLine() {
-        return paintTestUtils.concatenateOutputs(newCanvasOutput(), expectedOutputForAVerticalLine(), endingCommands());
+        return paintTestUtils.concatenateOutputs(testFactory.expectedNewCanvasOutputWithPrompt(), testFactory.expectedOutputForAVerticalLineWithPrompt(), endingCommands());
     }
 
     private String expectedOutputForCanvasWithVerticalAndHorizontalLine() {
-        return paintTestUtils.concatenateOutputs(newCanvasOutput(),
-                expectedOutputForAVerticalLine(),
-                expectedOutputForHorizontalAndVerticalLine(),
+        return paintTestUtils.concatenateOutputs(testFactory.expectedNewCanvasOutputWithPrompt(),
+                testFactory.expectedOutputForAVerticalLineWithPrompt(),
+                testFactory.expectedOutputForHorizontalAndVerticalLineWithPrompt(),
                 endingCommands());
     }
 
-    private String expectedOutputForHorizontalAndVerticalLine() {
-        return paintTestUtils.concatenateOutputs(ENTER_CMD_PROMPT,
-                "----------------------",
-                "|      x             |",
-                "|      x             |",
-                "|xxxxxxx             |",
-                "|                    |",
-                "|                    |",
-                "----------------------"
-        );
-    }
-
-    private String outputForLinesAndRectangle() {
-        return paintTestUtils.concatenateOutputs(ENTER_CMD_PROMPT,
-                "----------------------",
-                "|      x             |",
-                "|      x       xxxxxx|",
-                "|xxxxxxx       x    x|",
-                "|              x    x|",
-                "|              xxxxxx|",
-                "----------------------"
-        );
-    }
-
     private String expectedOutputForCanvasWithLinesAndRectangle() {
-        return paintTestUtils.concatenateOutputs(newCanvasOutput(),
-                expectedOutputForAVerticalLine(),
-                expectedOutputForHorizontalAndVerticalLine(),
-                outputForLinesAndRectangle(),
+        return paintTestUtils.concatenateOutputs(testFactory.expectedNewCanvasOutputWithPrompt(),
+                testFactory.expectedOutputForAVerticalLineWithPrompt(),
+                testFactory.expectedOutputForHorizontalAndVerticalLineWithPrompt(),
+                testFactory.outputForLinesAndRectangle(),
                 endingCommands());
     }
 
@@ -194,7 +137,7 @@ public class PaintAcceptanceTest {
     }
 
     private String expectedOutputForInvalidCommand(String expectedMessage) {
-        return paintTestUtils.concatenateOutputs(newCanvasOutput(),
+        return paintTestUtils.concatenateOutputs(testFactory.expectedNewCanvasOutputWithPrompt(),
                 ENTER_CMD_PROMPT,
                 expectedMessage,
                 endingCommands());

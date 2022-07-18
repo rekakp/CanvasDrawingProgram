@@ -1,71 +1,56 @@
 package drawing.service;
 
 import drawing.domain.Canvas;
-import drawing.domain.Shape;
-import drawing.service.commands.CommandService;
-import drawing.service.factory.CommandFactory;
+import drawing.domain.DrawWindow;
+import drawing.service.commands.DrawService;
+import drawing.service.factory.ShapeFactory;
 
 import java.util.Optional;
 
 public class CommandProcessingService {
 
     public static final String CANVAS_PATTERN = "C";
-    private Optional<Canvas> existingCanvas;
     private final CanvasService canvasService;
-    private final CommandFactory commandFactory;
+    private final ShapeFactory shapeFactory;
+    private Optional<Canvas> existingCanvas;
+    private DrawWindow drawWindow;
 
     public CommandProcessingService() {
         existingCanvas = Optional.empty();
         canvasService = new CanvasService();
-        commandFactory = new CommandFactory();
+        shapeFactory = new ShapeFactory();
+        drawWindow = new DrawWindow();
     }
 
-
-    public void processCommand(String command){
-        try{
-            if(command.startsWith(CANVAS_PATTERN)){
-                validateAndCreateCanvas(command);
+    public void processCommand(String command) {
+        // The drawWindow saves the previous state and it enables to support undo command in future.
+        drawWindow.addCanvas(existingCanvas.orElse(null));
+        Canvas canvas;
+        try {
+            if (command.startsWith(CANVAS_PATTERN)) {
+                canvas = canvasService.validateAndCreateCanvas(command);
+                existingCanvas = Optional.of(canvas);
             } else {
-                processOtherShapeCommands(command);
+                canvas = existingCanvas.orElseThrow(() -> new IllegalArgumentException("Canvas not available to paint"));
+                processOtherShapeCommands(command, canvas);
             }
-            printCanvas();
-        } catch (IllegalArgumentException exception){
+            drawWindow.setCanvas(canvas);
+            draw(drawWindow);
+        } catch (IllegalArgumentException exception) {
             printError(exception.getMessage());
         }
-
     }
 
-    private void printCanvas() {
-        existingCanvas.ifPresent(canvasService::printCanvas);
+    private void processOtherShapeCommands(String command, Canvas canvas) {
+        DrawService drawService = shapeFactory.getDrawService(command);
+        drawService.draw(command, canvas);
     }
 
     private void printError(String message) {
         System.out.println(message);
     }
 
-    private Shape  processOtherShapeCommands(String command) {
-        Canvas canvas = existingCanvas.orElseThrow(() -> new IllegalArgumentException("Canvas not available to paint"));
-        CommandService commandService = commandFactory.getCommandService(command);
-         commandService.executeTheSteps(command, canvas);
-         return null;
-    }
-
-    private void validateAndCreateCanvas(String command) {
-        if(canvasService.validate(command)){
-            Canvas canvas = createCanvas(command);
-            canvasService.fillCanvas(canvas);
-        } else {
-            throw new IllegalArgumentException("Input command is not valid: " + command);
-        }
-    }
-
-    private Canvas createCanvas(String command) {
-        Canvas canvas = canvasService.getCanvas(command);
-        setExistingCanvas(Optional.of(canvas));
-        return canvas;
-    }
-
-    public void setExistingCanvas(Optional<Canvas> existingCanvas) {
-        this.existingCanvas = existingCanvas;
+    private void draw(DrawWindow drawWindow) {
+        canvasService.printCanvas(drawWindow.getCanvas());
     }
 }
