@@ -17,7 +17,7 @@ Your solution should run 'out of the box' and interactively (i.e. it should resp
 
 ## Build status
 
-[build workflow](https://github.com/rekakp/CanvasDrawingProgram/actions/workflows/test-and-build.yml/badge.svg)
+![build workflow](https://github.com/rekakp/CanvasDrawingProgram/actions/workflows/test-and-build.yml/badge.svg)
 
 ---
 
@@ -80,13 +80,6 @@ The tests are run as part of this step. Only if the tests are successful, the PR
 
 ### Build and test workflow
 The build and test workflow runs everytime the code is merged to master.  
-The tests are run and gradle build is also done as part of this workflow.
+The tests are run and gradle build is also done as part of this workflow.  
+Workflow run - https://github.com/rekakp/CanvasDrawingProgram/actions/runs/2693722093  
 ![img.png](build_and_test.png)  
-![workflow run](https://github.com/rekakp/CanvasDrawingProgram/actions/runs/2693722093)
-￼
-￼
-
-￼
-￼
-
-￼
