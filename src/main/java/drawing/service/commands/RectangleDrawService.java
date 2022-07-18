@@ -3,23 +3,17 @@ package drawing.service.commands;
 
 import drawing.domain.Canvas;
 import drawing.domain.Rectangle;
-import drawing.domain.Shape;
 import drawing.domain.Line;
-import drawing.service.commands.AbstractCommandService;
-import drawing.service.commands.LineCommandService;
-
-import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
-public class RectangleCommandService extends AbstractCommandService<Rectangle> {
+public class RectangleDrawService extends AbstractDrawService<Rectangle> {
 
-    private final Character delimiter = '*';
-    private final String regex = "^R(\\s(\\d)+){4}$";
+    private final Character delimiter = 'x';
 
     @Override
     public Boolean validate(String command) {
-        return Pattern.matches(regex , command);
+        return validator.validateRectangle(command);
     }
 
     @Override
@@ -44,9 +38,7 @@ public class RectangleCommandService extends AbstractCommandService<Rectangle> {
 
     @Override
     public void processShape(Rectangle shape, Canvas canvas) {
-        Rectangle rectangle =  shape;
-        LineCommandService lineCommandService = new LineCommandService();
-        rectangle.getBoundaryLines().forEach(line -> lineCommandService.processShape(line, canvas));
+        drawingHelper.drawRectangle(shape , canvas);
     }
 
 }

@@ -1,22 +1,29 @@
 package drawing.service;
 
 import drawing.domain.Canvas;
+import drawing.helper.DrawingHelper;
+import drawing.validator.ShapeValidator;
 
 import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
-import static java.util.regex.Pattern.matches;
 
 public class CanvasService {
 
-    private final String canvasRegex= "^C\\s(\\d)+\\s(\\d)+$";
+    protected DrawingHelper drawingHelper;
+    protected ShapeValidator validator;
 
-    public Boolean validate(String command) {
-        return matches(canvasRegex , command);
+    public CanvasService() {
+        this.drawingHelper = new DrawingHelper();
+        this.validator = new ShapeValidator();
     }
 
-    public Canvas getCanvas(String command) {
+    public Boolean validate(String command) {
+       return validator.validateCanvas(command);
+    }
+
+    public Canvas createCanvas(String command) {
         String[] commandArr = command.split(" ");
         int width = parseInt(commandArr[1]);
         int height = parseInt(commandArr[2]);
@@ -27,39 +34,14 @@ public class CanvasService {
         Arrays.stream(canvas.getCanvasAsCharacters()).forEach(System.out::println);
     }
 
-    public void fillCanvas(Canvas canvas) {
-        populateLines(canvas);
-    }
-
-    private void populateLines(Canvas canvas) {
-        final int maxWidth = canvas.getWidth() + 2;
-        final int maxHeight = canvas.getHeight() + 2;
-        char[][] canvasAsCharacters = canvas.getCanvasAsCharacters();
-        for (int rowNum = 0; rowNum < maxHeight; rowNum++) {
-            if (firstLineOrLastLine(rowNum, maxHeight)) {
-                canvasAsCharacters[rowNum] = fillFirstOrLastLine(maxWidth , canvas.getTopBottomBoundary());
-            } else {
-                canvasAsCharacters[rowNum] = fillOtherLines(canvas);
-            }
+    public Canvas validateAndCreateCanvas(String command) {
+        if(validate(command)){
+            Canvas canvas = createCanvas(command);
+            drawingHelper.fillCanvas(canvas);
+            return canvas;
+        } else {
+            throw new IllegalArgumentException("Input command is not valid: " + command);
         }
-    }
-
-    private char[] fillOtherLines(Canvas canvas) {
-        String leftRightBoundary = valueOf(canvas.getLeftAndRightBoundary());
-        String space = valueOf(canvas.getSpace());
-        String blankLine = space.repeat(canvas.getWidth());
-        String line = leftRightBoundary.concat(blankLine).concat(leftRightBoundary);
-        return line.toCharArray();
-    }
-
-    private char[] fillFirstOrLastLine(int width, Character character) {
-        String firstAndLastLineBoundaryPattern = valueOf(character);
-        return firstAndLastLineBoundaryPattern.repeat(width).toCharArray();
-    }
-
-
-    private boolean firstLineOrLastLine(int rowNum, int maxHeight) {
-        return rowNum == 0 || rowNum == maxHeight - 1;
     }
 
 }

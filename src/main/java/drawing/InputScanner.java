@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class InputScanner {
 
+
     public static void main(String[] args) {
 
         String  command;
