@@ -27,7 +27,7 @@ public class LineDrawService extends AbstractDrawService<Line> {
 
     @Override
     public void processShape(Line shape, Canvas canvas) {
-        drawingHelper.drawLine(shape, canvas);
+        drawingHandler.drawLine(shape, canvas);
     }
 
 }

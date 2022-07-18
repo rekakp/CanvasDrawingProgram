@@ -2,16 +2,16 @@ package drawing.service.commands;
 
 import drawing.domain.Canvas;
 import drawing.domain.Shape;
-import drawing.helper.DrawingHelper;
+import drawing.helper.DrawingHandler;
 import drawing.validator.ShapeValidator;
 
 public abstract class AbstractDrawService<T extends Shape> implements DrawService<T> {
 
-    protected DrawingHelper drawingHelper;
+    protected DrawingHandler drawingHandler;
     protected ShapeValidator validator;
 
     public AbstractDrawService() {
-        this.drawingHelper = new DrawingHelper();
+        this.drawingHandler = new DrawingHandler();
         this.validator = new ShapeValidator();
     }
 

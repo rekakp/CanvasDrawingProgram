@@ -1,7 +1,7 @@
 package drawing.service;
 
 import drawing.domain.Canvas;
-import drawing.helper.DrawingHelper;
+import drawing.helper.DrawingHandler;
 import drawing.validator.ShapeValidator;
 
 import java.util.Arrays;
@@ -10,11 +10,11 @@ import static java.lang.Integer.parseInt;
 
 public class CanvasService {
 
-    protected DrawingHelper drawingHelper;
+    protected DrawingHandler drawingHandler;
     protected ShapeValidator validator;
 
     public CanvasService() {
-        this.drawingHelper = new DrawingHelper();
+        this.drawingHandler = new DrawingHandler();
         this.validator = new ShapeValidator();
     }
 
@@ -36,7 +36,7 @@ public class CanvasService {
     public Canvas validateAndCreateCanvas(String command) {
         if (validate(command)) {
             Canvas canvas = createCanvas(command);
-            drawingHelper.fillCanvas(canvas);
+            drawingHandler.drawCanvas(canvas);
             return canvas;
         } else {
             throw new IllegalArgumentException("Input command is not valid: " + command);

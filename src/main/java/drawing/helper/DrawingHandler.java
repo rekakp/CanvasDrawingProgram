@@ -6,7 +6,7 @@ import drawing.domain.Rectangle;
 
 import static java.lang.String.valueOf;
 
-public class DrawingHelper {
+public class DrawingHandler implements IDrawingHandler{
 
 
     public void drawRectangle(Rectangle rectangle, Canvas canvas) {
@@ -31,11 +31,11 @@ public class DrawingHelper {
         }
     }
 
-    public void fillCanvas(Canvas canvas) {
+    public void drawCanvas(Canvas canvas) {
         final int maxWidth = canvas.getWidth() + 2;
         final int maxHeight = canvas.getHeight() + 2;
         char[][] canvasAsCharacters = canvas.getCanvasAsCharacters();
-        fillCanvas(canvas, maxWidth, maxHeight, canvasAsCharacters);
+        drawCanvas(canvas, maxWidth, maxHeight, canvasAsCharacters);
     }
 
 
@@ -61,7 +61,7 @@ public class DrawingHelper {
         }
     }
 
-    private void fillCanvas(Canvas canvas, int maxWidth, int maxHeight, char[][] canvasAsCharacters) {
+    private void drawCanvas(Canvas canvas, int maxWidth, int maxHeight, char[][] canvasAsCharacters) {
         for (int rowNum = 0; rowNum < maxHeight; rowNum++) {
             if (isFirstLineOrLastLineInCanvas(rowNum, maxHeight)) {
                 canvasAsCharacters[rowNum] = canvasFillFirstOrLastLine(maxWidth, canvas.getTopBottomBoundary());

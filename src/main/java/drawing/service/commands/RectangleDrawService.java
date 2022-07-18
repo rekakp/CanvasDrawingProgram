@@ -38,7 +38,7 @@ public class RectangleDrawService extends AbstractDrawService<Rectangle> {
 
     @Override
     public void processShape(Rectangle shape, Canvas canvas) {
-        drawingHelper.drawRectangle(shape, canvas);
+        drawingHandler.drawRectangle(shape, canvas);
     }
 
 }

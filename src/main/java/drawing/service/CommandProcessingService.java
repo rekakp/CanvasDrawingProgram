@@ -23,7 +23,7 @@ public class CommandProcessingService {
     }
 
     public void processCommand(String command) {
-        // This enables to support undo command in future.
+        // The drawWindow saves the previous state and it enables to support undo command in future.
         drawWindow.addCanvas(existingCanvas.orElse(null));
         Canvas canvas;
         try {
