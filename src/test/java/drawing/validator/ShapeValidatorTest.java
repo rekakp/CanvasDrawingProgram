@@ -15,30 +15,6 @@ public class ShapeValidatorTest {
 
     ShapeValidator validator;
 
-    private static Stream<Arguments> givenRectangleInvalidInputs() {
-        return Stream.of(
-                Arguments.of("Ra 15 2 20 5"),
-                Arguments.of("R 15 2 20 5 1"),
-                Arguments.of("R 2 20 5"),
-                Arguments.of("R 15 2 20 five"));
-    }
-
-    private static Stream<Arguments> givenLineInvalidInputs() {
-        return Stream.of(
-                Arguments.of("La 7 1 7 3"),
-                Arguments.of("R 15 2 20 5"),
-                Arguments.of("L 7 1 7"),
-                Arguments.of("L 7 1 7 3 1"),
-                Arguments.of("L 7 1 10 11"));
-    }
-
-    private static Stream<Arguments> givenInvalidCanvasInputs() {
-        return Stream.of(
-                Arguments.of("C 7 1 7 3"),
-                Arguments.of("Ca 15 2"),
-                Arguments.of("Ca 152"));
-    }
-
     @BeforeEach
     public void setUp() {
         validator = new ShapeValidator();
@@ -75,5 +51,30 @@ public class ShapeValidatorTest {
     @Test
     public void givenValidRectangleCommandTrueShouldBeReturned() {
         assertTrue(validator.validateRectangle("R 15 2 20 5"));
+    }
+
+
+    private static Stream<Arguments> givenRectangleInvalidInputs() {
+        return Stream.of(
+                Arguments.of("Ra 15 2 20 5"),
+                Arguments.of("R 15 2 20 5 1"),
+                Arguments.of("R 2 20 5"),
+                Arguments.of("R 15 2 20 five"));
+    }
+
+    private static Stream<Arguments> givenLineInvalidInputs() {
+        return Stream.of(
+                Arguments.of("La 7 1 7 3"),
+                Arguments.of("R 15 2 20 5"),
+                Arguments.of("L 7 1 7"),
+                Arguments.of("L 7 1 7 3 1"),
+                Arguments.of("L 7 1 10 11"));
+    }
+
+    private static Stream<Arguments> givenInvalidCanvasInputs() {
+        return Stream.of(
+                Arguments.of("C 7 1 7 3"),
+                Arguments.of("Ca 15 2"),
+                Arguments.of("Ca 152"));
     }
 }
