@@ -1,4 +1,3 @@
-
 ##Problem
 Please implement a simple text (ASCII) based drawing program (something similar to a simplified version of Paint).   
 The basic program should allow users to:  
@@ -18,7 +17,7 @@ Your solution should run 'out of the box' and interactively (i.e. it should resp
 
 ## Build status
 
-![build workflow](https://github.com/rekakp/CanvasDrawingProgram/actions/workflows/test-and-build.yml/badge.svg)
+[build workflow](https://github.com/rekakp/CanvasDrawingProgram/actions/workflows/test-and-build.yml/badge.svg)
 
 ---
 
