@@ -2,8 +2,8 @@ package drawing.service.commands;
 
 
 import drawing.domain.Canvas;
-import drawing.domain.Rectangle;
 import drawing.domain.Line;
+import drawing.domain.Rectangle;
 
 import static java.lang.Integer.parseInt;
 
@@ -25,10 +25,10 @@ public class RectangleDrawService extends AbstractDrawService<Rectangle> {
         int y2 = parseInt(commandArr[4]);
 
         Rectangle rectangle = new Rectangle();
-        Line upperBound = new Line(x1, y1 , x1 , y2 , delimiter);
-        Line lowerBound = new Line(x2, y1 , x2, y2 , delimiter);
-        Line leftBound = new Line( x1 , y1 , x2, y1 , delimiter);
-        Line rightBound = new Line( x1 , y2 , x2, y2 , delimiter);
+        Line upperBound = new Line(x1, y1, x1, y2, delimiter);
+        Line lowerBound = new Line(x2, y1, x2, y2, delimiter);
+        Line leftBound = new Line(x1, y1, x2, y1, delimiter);
+        Line rightBound = new Line(x1, y2, x2, y2, delimiter);
         rectangle.addLine(upperBound);
         rectangle.addLine(lowerBound);
         rectangle.addLine(leftBound);
@@ -38,7 +38,7 @@ public class RectangleDrawService extends AbstractDrawService<Rectangle> {
 
     @Override
     public void processShape(Rectangle shape, Canvas canvas) {
-        drawingHelper.drawRectangle(shape , canvas);
+        drawingHelper.drawRectangle(shape, canvas);
     }
 
 }

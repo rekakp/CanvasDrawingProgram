@@ -16,7 +16,7 @@ public class Line implements Shape {
     }
 
     public Line(Integer x1, Integer firstYCoordinate, Integer x2, Integer y2, Character delimiter) {
-        this(x1, firstYCoordinate , x2, y2);
+        this(x1, firstYCoordinate, x2, y2);
         this.delimiter = delimiter;
     }
 
@@ -58,5 +58,29 @@ public class Line implements Shape {
 
     public void setDelimiter(Character delimiter) {
         this.delimiter = delimiter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Line line = (Line) o;
+
+        if (x1 != null ? !x1.equals(line.x1) : line.x1 != null) return false;
+        if (y1 != null ? !y1.equals(line.y1) : line.y1 != null) return false;
+        if (x2 != null ? !x2.equals(line.x2) : line.x2 != null) return false;
+        if (y2 != null ? !y2.equals(line.y2) : line.y2 != null) return false;
+        return delimiter != null ? delimiter.equals(line.delimiter) : line.delimiter == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x1 != null ? x1.hashCode() : 0;
+        result = 31 * result + (y1 != null ? y1.hashCode() : 0);
+        result = 31 * result + (x2 != null ? x2.hashCode() : 0);
+        result = 31 * result + (y2 != null ? y2.hashCode() : 0);
+        result = 31 * result + (delimiter != null ? delimiter.hashCode() : 0);
+        return result;
     }
 }

@@ -2,7 +2,7 @@ package drawing.validator;
 
 import java.util.regex.Pattern;
 
-public class ShapeValidator{
+public class ShapeValidator {
     private final String LINE_REGEX = "^L(\\s(\\d)+){4}$";
     private final String RECTANGLE_REGEX = "^R(\\s(\\d)+){4}$";
     private final String CANVAS_REGEX = "^C\\s(\\d)+\\s(\\d)+$";

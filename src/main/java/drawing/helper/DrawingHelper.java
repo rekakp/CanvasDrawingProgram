@@ -47,14 +47,14 @@ public class DrawingHelper {
         return line.getY2().equals(line.getY1());
     }
 
-    public void drawLineHorizontally(int y1, int y2, int columnNum, Canvas canvas , char delimiter) {
+    public void drawLineHorizontally(int y1, int y2, int columnNum, Canvas canvas, char delimiter) {
         for (int i = y1; i <= y2; i++) {
             char[][] canvasAsCharacters = canvas.getCanvasAsCharacters();
             canvasAsCharacters[i][columnNum] = delimiter;
         }
     }
 
-    public void drawLineVertically(int x1, int x2, int rowNum, Canvas canvas , char delimiter) {
+    public void drawLineVertically(int x1, int x2, int rowNum, Canvas canvas, char delimiter) {
         for (int i = x1; i <= x2; i++) {
             char[][] canvasAsCharacters = canvas.getCanvasAsCharacters();
             canvasAsCharacters[rowNum][i] = delimiter;

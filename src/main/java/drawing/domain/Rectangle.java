@@ -18,4 +18,19 @@ public class Rectangle implements Shape {
     public void addLine(Line line) {
         this.boundaryLines.add(line);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rectangle rectangle = (Rectangle) o;
+
+        return boundaryLines != null ? boundaryLines.equals(rectangle.boundaryLines) : rectangle.boundaryLines == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return boundaryLines != null ? boundaryLines.hashCode() : 0;
+    }
 }

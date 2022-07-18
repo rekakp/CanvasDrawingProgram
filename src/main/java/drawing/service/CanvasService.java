@@ -7,7 +7,6 @@ import drawing.validator.ShapeValidator;
 import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
-import static java.lang.String.valueOf;
 
 public class CanvasService {
 
@@ -20,14 +19,14 @@ public class CanvasService {
     }
 
     public Boolean validate(String command) {
-       return validator.validateCanvas(command);
+        return validator.validateCanvas(command);
     }
 
     public Canvas createCanvas(String command) {
         String[] commandArr = command.split(" ");
         int width = parseInt(commandArr[1]);
         int height = parseInt(commandArr[2]);
-        return new Canvas(height , width , '|' , '-' , ' ');
+        return new Canvas(height, width, '|', '-', ' ');
     }
 
     public void printCanvas(Canvas canvas) {
@@ -35,7 +34,7 @@ public class CanvasService {
     }
 
     public Canvas validateAndCreateCanvas(String command) {
-        if(validate(command)){
+        if (validate(command)) {
             Canvas canvas = createCanvas(command);
             drawingHelper.fillCanvas(canvas);
             return canvas;

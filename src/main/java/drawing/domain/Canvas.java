@@ -13,7 +13,7 @@ public class Canvas {
     public Canvas(int height, int width) {
         this.height = height;
         this.width = width;
-        this.canvasAsCharacters = new char[height + 2][width+ 2];
+        this.canvasAsCharacters = new char[height + 2][width + 2];
     }
 
     public Canvas(int height, int width, Character leftRightBoundary, Character topBottomBoundary, Character space) {
@@ -57,5 +57,31 @@ public class Canvas {
 
     public Character getSpace() {
         return space;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Canvas canvas = (Canvas) o;
+
+        if (height != canvas.height) return false;
+        if (width != canvas.width) return false;
+        if (leftAndRightBoundary != null ? !leftAndRightBoundary.equals(canvas.leftAndRightBoundary) : canvas.leftAndRightBoundary != null)
+            return false;
+        if (topAndBottomLineBoundary != null ? !topAndBottomLineBoundary.equals(canvas.topAndBottomLineBoundary) : canvas.topAndBottomLineBoundary != null)
+            return false;
+        return space != null ? space.equals(canvas.space) : canvas.space == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = height;
+        result = 31 * result + width;
+        result = 31 * result + (leftAndRightBoundary != null ? leftAndRightBoundary.hashCode() : 0);
+        result = 31 * result + (topAndBottomLineBoundary != null ? topAndBottomLineBoundary.hashCode() : 0);
+        result = 31 * result + (space != null ? space.hashCode() : 0);
+        return result;
     }
 }
