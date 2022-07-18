@@ -69,7 +69,7 @@ public class PaintAcceptanceTest {
 
     @Test
     public void testPaintWithoutCanvas() {
-        paintTestUtils.givenCommands( "L 7 1 7 3",  "Q");
+        paintTestUtils.givenCommands("L 7 1 7 3", "Q");
         whenPaintIsInvoked();
         assertThatTheResultIsAsExpected(expectedOutputForPaintingOnEmptyCanvas(CANVAS_NOT_AVAILABLE_TO_PAINT));
     }
@@ -77,9 +77,9 @@ public class PaintAcceptanceTest {
     @Test
     public void testPaintWithInvalidCommand() {
         String invalidCommand = "LA 7 1 7 3";
-        paintTestUtils.givenCommands( "C 20 5" , invalidCommand,  "Q");
+        paintTestUtils.givenCommands("C 20 5", invalidCommand, "Q");
         whenPaintIsInvoked();
-        assertThatTheResultIsAsExpected(expectedOutputForInvalidCommand(INVALID_INPUT_ERR +invalidCommand));
+        assertThatTheResultIsAsExpected(expectedOutputForInvalidCommand(INVALID_INPUT_ERR + invalidCommand));
     }
 
     private void whenPaintIsInvoked() {
