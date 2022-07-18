@@ -1,4 +1,4 @@
-##Problem
+Problem
 Please implement a simple text (ASCII) based drawing program (something similar to a simplified version of Paint).   
 The basic program should allow users to:  
 Create a new canvas  
@@ -46,8 +46,8 @@ The drawing.InputScanner is the main entry point for the code. The main() in Inp
 #### Factory
 
 The ShapeFactory class is the factory class that returns the corresponding DrawService based on the command passed.  
-If it,s a Line command , it returns the LineDrawService  
-If its a Rectangle command , it returns the RectangleDrawService  
+If it's a Line command , it returns the LineDrawService  
+If it's a Rectangle command , it returns the RectangleDrawService  
 This enables to support the new commands easily.  
 
 #### How to support new Shape Commands?  
