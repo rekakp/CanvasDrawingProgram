@@ -61,10 +61,10 @@ To support a new Shape Command
 
 ### How to support Undo operation?  
 
-Since paint program support undo operation, design has been done in a way to support UndoOperation in the future.  
+Since paint program supports undo operation, design has been done in a way to support UndoOperation in the future.  
 The CommandProcessingService creates a DrawWindow which has a Canvas in it. 
-When a new command is passed, the previous canvas will be stored in the DrawWindow - previousCanvas stack.  
-If we need to a undo, the last used canvas can be popped from the previousCanvas stack.
+When a new command is passed, the previous canvas will be stored in the DrawWindow (previousCanvas Stack) ,and the new canvas will be set as the current canvas.
+If we need to 'undo', the previous canvas state can be popped from the previousCanvas stack.
 
 ---
 
@@ -78,8 +78,8 @@ Integration test and unit tests are written for this problem.
 
 Basic pipelines have been added to test and build the project.  
 
-### Validate PR workflow  
-When a PR is raised, the valid PR workflow is triggered. Only if the steps of the workflow is successful, the PR is allowed to be merged.   
+### Validate Pull Request workflow  
+When a Pull Request is raised, the valid PR workflow is triggered. Only if the steps of the workflow is successful, the PR is allowed to be merged.   
 The tests are run as part of this step. Only if the tests are successful, the PR will be allowed to be merged.
 ![Validate PR](./pr_checks_before.png)
 ![Validate PR Success](./pr_checks_success.png)
