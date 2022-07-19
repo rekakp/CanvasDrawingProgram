@@ -68,6 +68,12 @@ If we need to a undo, the last used canvas can be popped from the previousCanvas
 
 ---
 
+### Tests
+
+Integration test and unit tests are written for this problem.
+
+---
+
 ## Pipelines
 
 Basic pipelines have been added to test and build the project.  
